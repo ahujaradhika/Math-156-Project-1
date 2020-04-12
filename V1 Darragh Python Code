@@ -1,0 +1,87 @@
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+#I borrowed the Polynomial class code from the website www.python-course.eu!
+class Polynomial:
+     def __init__(self, *coefficients):
+          #input: coefficients are in the form a_n, ...a_1, a_0
+          self.coefficients = list(coefficients)  # tuple is turned into a list
+     def __repr__(self):
+          return "Polynomial" + str(self.coefficients)
+
+     def __call__(self, x):
+          res = 0
+          for index, coeff in enumerate(self.coefficients[::-1]):
+               res += coeff * x** index
+          return res
+
+#Play with the value of M here
+M = 10
+#Change N to 20 or 50 depending on which data set you're using!
+N = 50
+
+#I've saved the data in files called x20.txt, t20.txt, x50.txt, and t50.txt
+with open('x50.txt', 'r') as reader:
+     temp = reader.read().splitlines()
+
+x = [float(i) for i in temp]
+
+with open('t50.txt', 'r') as reader:
+     temp = reader.read().splitlines()
+
+t = [float(i) for i in temp]
+
+#print(x)
+#print(t)
+
+A = np.zeros((M + 1, M + 1))
+
+#we calculate the sums that will go in the (j,k)-entry of A
+#this is more efficient than repeating it for each entry! (O(n) instead of O(n^2))
+values_list = []
+
+for k in range (0, 2*M + 1):
+     sum = 0
+     for i in range (0, N):
+          sum += math.pow(x[i], k)
+     values_list.append(sum)
+'''
+add = 0
+for i in range (0, N):
+     add += pow(x[i], 10)
+print(add)
+'''
+
+#print(values_list)
+
+for j in range(0, M + 1):
+     for k in range(0, M + 1):
+          A[j][k] = values_list[j + k]
+
+#print(A)
+
+#We make the vector b next
+b = []
+for k in range (0, M+1):
+     sum = 0
+     for i in range (0, N):
+         sum += math.pow(x[i], k) * t[i]
+     b.append(-2*sum)
+
+w = - np.linalg.inv(A).dot(b)
+
+print(w)
+
+y = Polynomial(0)
+
+for k in range(0, M+1):
+     y.coefficients.append(w[M-k])
+
+#print(y(0.5))
+
+X = np.linspace(0, 2, 50, endpoint=True)
+F = y(X)
+plt.plot(X, F)
+
+plt.show()
