@@ -44,7 +44,7 @@ values_list = []
 for k in range (0, 2*M + 1):
      sum = 0
      for i in range (0, N):
-          sum += math.pow(x[i], k)
+          sum += 2 * math.pow(x[i], k)
      values_list.append(sum)
 '''
 add = 0
