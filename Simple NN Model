@@ -1,0 +1,80 @@
+#Use Anaconda to manage all of the packages
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from keras.models import Sequential
+from keras.layers import Dense
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits import mplot3d
+
+#This model is based only on the distance between the pick-up and drop-off and the time of day,
+#with the passenger count fixed at 1.
+
+#The passenger count is in the 7th column
+#The ~distance is in the 8th column
+#The time-of-day (in minutes) is in the 12th column
+data = pd.read_csv('train.csv')
+
+X = []
+y = []
+
+#Take the first 2000 datapoints
+for i in range(0,2000):
+    #This if statement picks out the entries where the passenger count is equal to 1
+    if (data.iat[i,7] == 1):
+        X.append(data.iloc[i,[8,12]].values)
+        y.append(data.iat[i,1])
+
+#Keras needs us to normalise the data for some reason
+sc = StandardScaler()
+X = np.array(sc.fit_transform(X))
+y = np.array(y)
+
+#We split the data into 80% training, 20% test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+#A mystery. Experiment with the following layers. The number 16 is not special (here),
+#and the relu activations were chosen because that's what the guide I followed used
+model = Sequential()
+model.add(Dense(16, input_shape=(2,)))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(1, activation='linear'))
+model.compile(optimizer='rmsprop', loss='mse', metrics=['mse'])
+
+print(model.summary())
+
+model.fit(X_train, y_train, epochs = 20)
+
+y_pred = model.predict(X_test)
+
+
+#The plotting code is comically delicate because I'm not very bright, so feel free to delete this and
+#do something more sensible for plotting.
+#Since there are only 2 variables, time and distance, we can show everything on a 3D graph
+fig = plt.figure(figsize=(9,9), dpi= 80)
+ax = plt.axes(projection='3d')
+ax.scatter3D(X.transpose()[0], X.transpose()[1], y, color='r', cmap='Greens')
+
+N=50
+ex = np.linspace(-1.5,8,N)
+ey = np.linspace(-2,2,N)
+eX,eY = np.meshgrid(ex,ey)
+eZ=[]
+
+for i in range(0,N):
+    eZ.append([])
+    for j in range (0,N):
+        eZ[i].append(model.predict(np.array([[eX[i][j], eY[i][j]]]))[0][0])
+
+ax.contour3D(eX, eY, eZ, 50, cmap='viridis')
+
+plt.show()
