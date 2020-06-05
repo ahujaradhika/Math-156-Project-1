@@ -1,5 +1,5 @@
-import pandas as pd
 import math
+import pandas as pd
 
 PATH = 'fares_by_hour/hour-'
 HOURS = 24
