@@ -61,7 +61,7 @@ vertices of a quadrilateral that enclose Manhattan,
 A = (40.693598, −74.043508)   B = (40.887045, −73.935076)
 C = (40.796631, −73.928354)   D = (40.709264, −73.977696)
 
-<img src="images/DataMapAndQuadrilateral.png"></img>
+<img src="images/DataMapAndQuadrilateral.png" height="400px"></img>
 
 All points X to the right of the line AB will give det(B − A, X − A) > 0, and all points to the
 left side of AB will give det(B − A, X − A) < 0. This is because if X is to the right of AB then
@@ -83,9 +83,9 @@ actual values at each step of the training process. We used Mean Squared Error.
 **Comparison of Models**: Figures 4 and 5 provide plots of our Basic Simple Linear Model and Basic NN Model (trained and tested on 20,000 points of the unrestricted data set) and our Manhattan Simple Linear Model and Manhattan NN Model (trained and tested on 20,000 points restricted to
 Manhattan). Some observations about the graphs of the models:
 
-<img src="images/basoc_models.png"></img>
+<img src="images/basic_models.png" height="250px"></img>
 
-<img src="images/manhattan_models.png"></img>
+<img src="images/manhattan_models.png" height="250px"></img>
 
 - As predicted, the models become more accurate when the input is restricted to Manhattan
 and the RMSE values drop for both the Simple Linear and Neural Network mordels.
@@ -99,14 +99,14 @@ to 3.85 for the basic models and from 2.77 to 2.70 for the Manhattan models.
 end in Manhattan. As mentioned before, the Haversine distance function becomes more
 accurate for rides that are confined to Manhattan, so we expect this improvement.
 
-<img src="images/activation_function_comparison.png"></img>
+<img src="images/activation_function_comparison.png" height="400px"></img>
 
 **Comparison of Activation Functions**: Figure 4 gives a comparison of how the RMSE value
 developed with the number of epochs for the Relu, tanh and sigmoid activation functions, when
 training our Manhattan NN Model. The activation functions all behaved similarly, and we had
 no reason to prefer any one in particular and decided to use a tanh activation function.
 
-<img src="images/driving_distance_1.png"></img>
+<img src="images/driving_distance_1.png" height="500px"></img>
 
 **Google Maps Driving Distance API**: We implemented another method
 of obtaining distance using the Google Maps API which provides the
@@ -120,7 +120,7 @@ we trained the model on a subset of the original data set (not restricted to Man
 
 We can see the following fare distribution based on the model’s prediction:
 
-<img src="images/ride-fare-predictions.png"></img>
+<img src="images/ride-fare-predictions.png" height="450px"></img>
 
 Most notably, we can make the following observations:
 - The **prices surge in the middle of the day**, especially between noon and 5pm.
