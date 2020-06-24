@@ -120,7 +120,7 @@ we trained the model on a subset of the original data set (not restricted to Man
 
 We can see the following fare distribution based on the model’s prediction:
 
-<img src="images/ride-fair-predictions.png"></img>
+<img src="images/ride-fare-predictions.png"></img>
 
 Most notably, we can make the following observations:
 - The **prices surge in the middle of the day**, especially between noon and 5pm.
