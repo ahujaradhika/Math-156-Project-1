@@ -106,9 +106,7 @@ developed with the number of epochs for the Relu, tanh and sigmoid activation fu
 training our Manhattan NN Model. The activation functions all behaved similarly, and we had
 no reason to prefer any one in particular and decided to use a tanh activation function.
 
-<img src="images/driving_distance_1.png" height="400px"></img>
-
-**Google Maps Driving Distance API**: We implemented another method
+**Google Maps Distance Matrix API**: We implemented another method
 of obtaining distance using the Google Maps API which provides the
 driving distance between two points, as in the map on the right.
 This is more accurate than the Haversine function, but due to API
