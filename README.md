@@ -99,14 +99,14 @@ to 3.85 for the basic models and from 2.77 to 2.70 for the Manhattan models.
 end in Manhattan. As mentioned before, the Haversine distance function becomes more
 accurate for rides that are confined to Manhattan, so we expect this improvement.
 
-<img src="images/activation_function_comparison.png" height="400px"></img>
+<img src="images/activation_functions_comparison.png" height="400px"></img>
 
 **Comparison of Activation Functions**: Figure 4 gives a comparison of how the RMSE value
 developed with the number of epochs for the Relu, tanh and sigmoid activation functions, when
 training our Manhattan NN Model. The activation functions all behaved similarly, and we had
 no reason to prefer any one in particular and decided to use a tanh activation function.
 
-<img src="images/driving_distance_1.png" height="500px"></img>
+<img src="images/driving_distance_1.png" height="400px"></img>
 
 **Google Maps Driving Distance API**: We implemented another method
 of obtaining distance using the Google Maps API which provides the
